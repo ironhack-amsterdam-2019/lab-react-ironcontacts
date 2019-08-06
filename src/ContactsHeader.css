@@ -1,0 +1,12 @@
+.contactsHeader {
+  display: flex;
+  padding: 15px 15px 0px 15px;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.contactsHeader p {
+  width: 100px;
+  padding: 0 5px;
+  font-weight: bold;
+}

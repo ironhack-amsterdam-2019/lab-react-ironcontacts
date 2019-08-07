@@ -22,7 +22,7 @@ class App extends Component {
     let displayContacts = this.state.displayContacts.concat([newContact]);
     this.setState({
       displayContacts: displayContacts,
-      searchResults: [...displayContacts]
+      searchResults: this.filterForCurrentSearch([...displayContacts])
     })
   }
 
@@ -30,7 +30,7 @@ class App extends Component {
     let displayContacts = [...this.state.displayContacts].sort((a, b) => a.name > b.name ? 1 : -1);
     this.setState({
       displayContacts: displayContacts,
-      searchResults: [...displayContacts]
+      searchResults: this.filterForCurrentSearch([...displayContacts])
     })
   }
 
@@ -38,11 +38,19 @@ class App extends Component {
     let displayContacts = [...this.state.displayContacts].sort((a, b) => a.popularity > b.popularity ? -1 : 1);
     this.setState({
       displayContacts: displayContacts,
-      searchResults: [...displayContacts]
+      searchResults: this.filterForCurrentSearch([...displayContacts])
     })
   }
 
+  filterForCurrentSearch(contacts) {
+    if(this.state.searchValue && this.state.searchValue.length > 0) {
+      return contacts.filter(contact => contact.name.toLowerCase().indexOf(this.state.searchValue) > -1)
+    }
+    return contacts;
+  }
+
   search = (event, search) => {
+    // make search case in-sensitive
     let searchValue = event ? event.target.value.toLowerCase() : search;
     this.setState({
       searchValue: searchValue,
